@@ -1,0 +1,108 @@
+version: "3.9"
+
+# Container Image Security Scanner – Docker Compose
+#
+# Quick start (no Trivy needed — demo mode):
+#   docker-compose up web
+#   Open http://localhost:8000
+#
+# With real scanning:
+#   docker-compose up web-with-trivy
+#   Then upload a .tar image archive or Dockerfile via the UI
+#
+# CLI usage:
+#   docker-compose run --rm scanner --help
+#   docker-compose run --rm scanner --dockerfile /scan/Dockerfile
+#   docker-compose run --rm scanner --image nginx:latest   # requires docker socket
+#
+# Security note:
+#   Mounting the Docker socket (/var/run/docker.sock) grants the container
+#   root-equivalent access to the host Docker daemon. Use only in trusted CI/CD
+#   environments where this risk is explicitly accepted and documented.
+
+services:
+
+  # ── Web UI (demo mode — no Trivy, no Docker socket required) ─────────────
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: container-image-security-scanner:latest
+    container_name: ciss-web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./reports:/app/reports
+    environment:
+      - TRIVY_NO_PROGRESS=true
+      - TRIVY_CACHE_DIR=/tmp/trivy-cache
+    working_dir: /app
+    entrypoint: ["python", "webserver.py"]
+    command: ["--host", "0.0.0.0", "--port", "8000"]
+    user: "10001:10001"
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ── Web UI with Docker socket (real image scanning enabled) ───────────────
+  web-with-docker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: container-image-security-scanner:latest
+    container_name: ciss-web-docker
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./reports:/app/reports
+      # WARNING: Mounting the Docker socket grants elevated privileges.
+      # Only use this in trusted environments.
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - TRIVY_NO_PROGRESS=true
+      - TRIVY_CACHE_DIR=/tmp/trivy-cache
+    working_dir: /app
+    entrypoint: ["python", "webserver.py"]
+    command: ["--host", "0.0.0.0", "--port", "8000"]
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ── CLI scanner service ───────────────────────────────────────────────────
+  scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: container-image-security-scanner:latest
+    volumes:
+      - ./reports:/app/reports
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - TRIVY_NO_PROGRESS=true
+      - TRIVY_CACHE_DIR=/tmp/trivy-cache
+    working_dir: /app
+    entrypoint: ["python", "scanner.py"]
+    command: ["--help"]
+    user: "10001:10001"
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    profiles:
+      - cli

@@ -1,0 +1,56 @@
+{
+  "image": "(dockerfile only)",
+  "scan_time": "2026-10-08T05:25:11.833232+00:00",
+  "trivy_version": "",
+  "scan_duration_seconds": 0.0005377000197768211,
+  "summary": {
+    "total": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "unknown": 0
+  },
+  "security_score": {
+    "score": 99,
+    "risk_level": "LOW",
+    "deductions": [
+      {
+        "type": "dockerfile",
+        "id": "DF-009",
+        "severity": "LOW",
+        "points": 1,
+        "reason": "Dockerfile issue DF-009: Missing HEALTHCHECK instruction"
+      }
+    ]
+  },
+  "gate_passed": false,
+  "gate_fail_on": [
+    "MEDIUM",
+    "LOW"
+  ],
+  "vulnerabilities": [],
+  "misconfigurations": [],
+  "dockerfile_findings": [
+    {
+      "rule_id": "DF-009",
+      "title": "Missing HEALTHCHECK instruction",
+      "severity": "LOW",
+      "description": "No HEALTHCHECK instruction was found. Without a healthcheck, orchestrators cannot detect unhealthy containers.",
+      "recommendation": "Add a HEALTHCHECK instruction appropriate for your service, e.g.: HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost/ || exit 1",
+      "line_number": null,
+      "line_content": ""
+    }
+  ],
+  "remediation_items": [
+    {
+      "finding_id": "DF-009",
+      "package_or_target": "Dockerfile",
+      "severity": "LOW",
+      "what_is_wrong": "DF-009: Missing HEALTHCHECK instruction. No HEALTHCHECK instruction was found. Without a healthcheck, orchestrators cannot detect unhealthy containers.",
+      "why_it_matters": "Low severity findings represent minor security concerns. Address these as part of routine security hygiene to reduce attack surface.",
+      "how_to_fix": "Add a HEALTHCHECK instruction appropriate for your service, e.g.: HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost/ || exit 1",
+      "priority": 4
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Container Security Scan Report – (dockerfile only)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;line-height:1.6;background:#f3f4f6;color:#1f2328}
+  .container{max-width:1100px;margin:0 auto;padding:24px 16px}
+  h1{font-size:22px;font-weight:700;margin-bottom:4px}
+  h2{font-size:16px;font-weight:600;margin:24px 0 12px;color:#374151;border-bottom:2px solid #e5e7eb;padding-bottom:6px}
+  h3{font-size:14px;font-weight:600;margin:12px 0 6px}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:20px;margin-bottom:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+  .metric{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;text-align:center}
+  .metric-value{font-size:32px;font-weight:700;line-height:1.2}
+  .metric-label{font-size:12px;color:#6b7280;margin-top:4px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:#f9fafb;text-align:left;padding:8px 10px;font-weight:600;border-bottom:2px solid #e5e7eb;white-space:nowrap}
+  td{padding:8px 10px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+  tr:hover td{background:#fafafa}
+  .remed-item{border-left:4px solid #e5e7eb;padding:12px 16px;margin-bottom:12px;background:#fafafa;border-radius:0 6px 6px 0}
+  .remed-item.critical{border-color:#dc2626}
+  .remed-item.high{border-color:#ea580c}
+  .remed-item.medium{border-color:#ca8a04}
+  .remed-item.low{border-color:#16a34a}
+  .header-bar{background:#1e293b;color:#fff;padding:20px;border-radius:8px;margin-bottom:20px}
+  .header-bar p{color:#94a3b8;font-size:13px;margin-top:4px}
+  .empty-note{color:#9ca3af;font-style:italic;font-size:13px;padding:12px 0}
+  code{background:#f1f5f9;padding:1px 4px;border-radius:3px;font-family:monospace;font-size:12px}
+  footer{text-align:center;color:#9ca3af;font-size:11px;border-top:1px solid #e5e7eb;margin-top:32px;padding-top:16px}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header-bar">
+    <h1>🔒 Container Image Security Scan Report</h1>
+    <p>Image: <strong>(dockerfile only)</strong> &nbsp;|&nbsp; Scanned: 2026-10-08 05:24:57 UTC &nbsp;|&nbsp; Trivy: </p>
+  </div>
+
+  <!-- Executive Summary -->
+  <h2>Executive Summary</h2>
+  <div class="grid">
+    <div class="metric">
+      <div class="metric-value" style="color:#16a34a">99</div>
+      <div class="metric-label">Security Score / 100</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value" style="color:#16a34a">LOW</div>
+      <div class="metric-label">Risk Level</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value" style="color:#dc2626">0</div>
+      <div class="metric-label">Critical Vulns</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value" style="color:#ea580c">0</div>
+      <div class="metric-label">High Vulns</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value" style="color:#ca8a04">0</div>
+      <div class="metric-label">Medium Vulns</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value" style="color:#16a34a">0</div>
+      <div class="metric-label">Low Vulns</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">0</div>
+      <div class="metric-label">Misconfigurations</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">1</div>
+      <div class="metric-label">Dockerfile Issues</div>
+    </div>
+  </div>
+
+  <!-- Scan Info -->
+  <div class="card">
+    <h3>Scan Information</h3>
+    <table>
+      <tr><td><strong>Image</strong></td><td>(dockerfile only)</td></tr>
+      <tr><td><strong>Scan Time</strong></td><td>2026-10-08 05:24:57 UTC</td></tr>
+      <tr><td><strong>Trivy Version</strong></td><td></td></tr>
+      <tr><td><strong>Scan Duration</strong></td><td>0.0s</td></tr>
+      <tr><td><strong>Total Vulnerabilities</strong></td><td>0</td></tr>
+      <tr><td><strong>Security Gate</strong></td><td><span style="color:#16a34a;font-weight:bold;">✓ PASSED</span></td></tr>
+      <tr><td><strong>Gate Policy (Fail On)</strong></td><td>CRITICAL, HIGH</td></tr>
+    </table>
+  </div>
+
+  <!-- Security Score Note -->
+  <div class="card" style="border-left:4px solid #3b82d4">
+    <p><strong>ℹ Security Score Note:</strong> The score above is this project's own internal scoring model and is <em>not</em>
+    an official industry standard (not CVSS, not NIST). It starts at 100 and deducts points per finding
+    (Critical vuln: −20, High vuln: −10, Medium: −3, Low: −1; Critical misconfig: −10, etc.).
+    It is intended for relative comparison across scans of the same or similar images.</p>
+  </div>
+
+  <!-- Vulnerabilities -->
+  <h2>Vulnerabilities (0 total)</h2>
+  <p class="empty-note">No vulnerabilities detected.</p>
+
+  <!-- Misconfigurations -->
+  <h2>Misconfigurations (0 total)</h2>
+  <p class="empty-note">No misconfigurations detected.</p>
+
+  <!-- Dockerfile Findings -->
+  <h2>Dockerfile Security Findings (1 total)</h2>
+  <table><thead><tr><th>Rule</th><th>Title</th><th>Severity</th><th>Line</th><th>Recommendation</th></tr></thead><tbody><tr><td><code>DF-009</code></td><td>Missing HEALTHCHECK instruction</td><td><span style="background:#16a34a;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">LOW</span></td><td></td><td>Add a HEALTHCHECK instruction appropriate for your service, e.g.: HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost/ || exit 1</td></tr></tbody></table>
+
+  <!-- Remediation -->
+  <h2>Remediation Recommendations (1 items)</h2>
+  <div class="remed-item low"><p><strong>DF-009</strong> &nbsp; <span style="background:#16a34a;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">LOW</span> &nbsp; <em>Dockerfile</em></p><p style="margin-top:8px"><strong>What is wrong:</strong> DF-009: Missing HEALTHCHECK instruction. No HEALTHCHECK instruction was found. Without a healthcheck, orchestrators cannot detect unhealthy containers.</p><p><strong>Why it matters:</strong> Low severity findings represent minor security concerns. Address these as part of routine security hygiene to reduce attack surface.</p><p><strong>How to fix:</strong> Add a HEALTHCHECK instruction appropriate for your service, e.g.: HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost/ || exit 1</p></div>
+
+  <footer>
+    Generated by Container Image Security Scanner &nbsp;|&nbsp; Made with IBM Bob
+  </footer>
+</div>
+</body>
+</html>
